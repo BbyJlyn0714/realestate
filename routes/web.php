@@ -23,8 +23,12 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 }); // Admin Group
 
 Route::middleware(['auth', 'role:agent'])->group(function () {
     Route::get('/agent/dashboard', [AgentController::class, 'dashboard'])->name('agent.dashboard');
+    Route::get('/agent/logout', [AgentController::class, 'logout'])->name('agent.logout');
 }); // Agent Group
+
+Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
