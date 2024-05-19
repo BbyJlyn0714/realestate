@@ -25,8 +25,13 @@ License: For each use you must have a valid license purchased only from above li
         .authlogin-side-wrapper {
             width: 100%;
             height: 100%;
-            background-image: url({{ asset('upload/login.png') }})
+            background-image: url({{ asset('upload/login.png')
         }
+        }
+
+        )
+        }
+
     </style>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,6 +56,7 @@ License: For each use you must have a valid license purchased only from above li
     <!-- End layout styles -->
 
     <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 </head>
 
 <body>
@@ -77,13 +83,14 @@ License: For each use you must have a valid license purchased only from above li
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="login" class="form-label">Email / Name / Phone</label>
-                                                <input type="text" name="login" value="{{ old('login') }}" class="form-control" id="login"
-                                                    placeholder="Email">
+                                                <input type="text" name="login" value="{{ old('login') }}"
+                                                    class="form-control" id="login" placeholder="Email">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" name="password" class="form-control" id="password"
-                                                    autocomplete="current-password" placeholder="Password">
+                                                <input type="password" name="password" class="form-control"
+                                                    id="password" autocomplete="current-password"
+                                                    placeholder="Password">
                                             </div>
                                             <div class="form-check mb-3">
                                                 <input type="checkbox" class="form-check-input" id="authCheck">
@@ -122,8 +129,29 @@ License: For each use you must have a valid license purchased only from above li
     <!-- endinject -->
 
     <!-- Custom js for this page -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- End custom js for this page -->
 
+    <script>
+        @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type','info') }}"
+        switch (type) {
+            case 'info':
+                toastr.info(" {{ Session::get('message') }} ");
+                break;
+            case 'success':
+                toastr.success(" {{ Session::get('message') }} ");
+                break;
+            case 'warning':
+                toastr.warning(" {{ Session::get('message') }} ");
+                break;
+            case 'error':
+                toastr.error(" {{ Session::get('message') }} ");
+                break;
+        }
+        @endif
+
+    </script>
 </body>
 
 </html>

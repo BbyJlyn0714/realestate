@@ -18,7 +18,10 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
-    Route::post('/user/profile/update', [UserController::class, 'update'])->name('user.profile.update'); 
+    Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+    Route::get('/user/change/password', [UserController::class, 'changePassword'])->name('user.change.password'); 
+    Route::post('/user/profile/update', [UserController::class, 'update'])->name('user.profile.update');
+    Route::post('/user/password/update', [UserController::class, 'updatePassword'])->name('user.password.update');
 });
 
 require __DIR__.'/auth.php';
