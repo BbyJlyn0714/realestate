@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PropertyTypeController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +34,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::get('/admin/change/password', [AdminController::class, 'changePassword'])->name('admin.change.password'); 
     Route::post('/admin/profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
-    Route::post('/admin/password/update', [AdminController::class, 'updatePassword'])->name('admin.password.update'); 
+    Route::post('/admin/password/update', [AdminController::class, 'updatePassword'])->name('admin.password.update');
+
+     // Property Type All Route 
+    Route::controller(PropertyTypeController::class)->group(function(){
+        Route::get('/all/type', 'allType')->name('property.all.type');  
+    });
 }); // Admin Group
 
 // Agent Group Middleware

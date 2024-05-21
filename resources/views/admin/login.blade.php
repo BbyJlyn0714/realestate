@@ -25,11 +25,7 @@ License: For each use you must have a valid license purchased only from above li
         .authlogin-side-wrapper {
             width: 100%;
             height: 100%;
-            background-image: url({{ asset('upload/login.png')
-        }
-        }
-
-        )
+            background-image: url({{ asset('upload/login.png')}})
         }
 
     </style>
