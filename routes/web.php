@@ -38,7 +38,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
      // Property Type All Route 
     Route::controller(PropertyTypeController::class)->group(function(){
-        Route::get('/all/type', 'allType')->name('property.all.type');  
+        Route::get('/all/type', 'allType')->name('property.all.type');
+        Route::get('/add/type', 'create')->name('property.add.type');
+        Route::get('/edit/type/{id}', 'edit')->name('property.edit.type');
+        Route::get('/delete/type/{id}', 'delete')->name('property.delete.type'); 
+        Route::post('/add/type', 'store')->name('property.store.type');
+        Route::post('/update/type', 'update')->name('property.update.type');
     });
 }); // Admin Group
 
