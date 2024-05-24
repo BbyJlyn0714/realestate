@@ -27,7 +27,7 @@
                                 @foreach($amenities as $key => $item)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{ $item->amenitis_name }}</td>
+                                    <td>{{ $item->amenities_name }}</td>
                                     <td>
                                         <a href="{{ route('amenities.edit', $item->id) }}" class="btn btn-inverse-warning">
                                             Edit </a>
