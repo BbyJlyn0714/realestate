@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PropertyTypeController;
+use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/delete/type/{id}', 'delete')->name('property.delete.type'); 
         Route::post('/add/type', 'store')->name('property.store.type');
         Route::post('/update/type', 'update')->name('property.update.type');
+    });
+
+    // Amenities All Route
+    Route::controller(AmenitiesController::class)->group(function() {
+        Route::get('/all/amenities', 'index')->name('amenities.index');
+        Route::get('/add/amenities', 'create')->name('amenities.add');
+        Route::get('/edit/amenities/{id}', 'edit')->name('amenities.edit');
+        Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete'); 
+        Route::post('/add/amenities', 'store')->name('amenities.store');
+        Route::post('/update/amenities', 'update')->name('amenities.update');
     });
 }); // Admin Group
 
