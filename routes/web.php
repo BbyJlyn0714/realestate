@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PropertyTypeController;
 use App\Http\Controllers\Admin\AmenitiesController;
+use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete'); 
         Route::post('/add/amenities', 'store')->name('amenities.store');
         Route::post('/update/amenities', 'update')->name('amenities.update');
+    });
+
+    // Amenities All Route
+    Route::controller(PropertyController::class)->group(function() {
+        Route::get('/all/property', 'index')->name('property.index');
+        // Route::get('/add/amenities', 'create')->name('amenities.add');
+        // Route::get('/edit/amenities/{id}', 'edit')->name('amenities.edit');
+        // Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete'); 
+        // Route::post('/add/amenities', 'store')->name('amenities.store');
+        // Route::post('/update/amenities', 'update')->name('amenities.update');
     });
 }); // Admin Group
 
