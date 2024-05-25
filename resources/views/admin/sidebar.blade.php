@@ -69,7 +69,7 @@
                             <a href="{{ route('property.index') }}" class="nav-link">All Property</a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/email/read.html" class="nav-link">Add Property</a>
+                            <a href="{{ route('property.add') }}" class="nav-link">Add Property</a>
                         </li>
 
                     </ul>

@@ -61,7 +61,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Amenities All Route
     Route::controller(PropertyController::class)->group(function() {
         Route::get('/all/property', 'index')->name('property.index');
-        // Route::get('/add/amenities', 'create')->name('amenities.add');
+        Route::get('/add/property', 'create')->name('property.add');
         // Route::get('/edit/amenities/{id}', 'edit')->name('amenities.edit');
         // Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete'); 
         // Route::post('/add/amenities', 'store')->name('amenities.store');
