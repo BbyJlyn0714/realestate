@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('bedrooms')->nullable();
             $table->string('bathrooms')->nullable();
             $table->string('garage')->nullable();
-            $table->string('garage_size')->nullable(); 
+            $table->string('garage_size')->nullable();
             $table->string('property_size')->nullable();
             $table->string('property_video')->nullable();
             $table->string('address')->nullable();
@@ -40,7 +40,7 @@ return new class extends Migration
             $table->string('featured')->nullable();
             $table->string('hot')->nullable();
             $table->integer('agent_id')->nullable();
-            $table->string('status')->default(0); 
+            $table->string('status')->default(0);
             $table->timestamps();
         });
     }

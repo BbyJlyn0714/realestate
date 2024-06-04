@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\PropertyTypeController;
 use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\Admin\PropertyTypeController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +21,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
-    Route::get('/user/change/password', [UserController::class, 'changePassword'])->name('user.change.password'); 
+    Route::get('/user/change/password', [UserController::class, 'changePassword'])->name('user.change.password');
     Route::post('/user/profile/update', [UserController::class, 'update'])->name('user.profile.update');
     Route::post('/user/password/update', [UserController::class, 'updatePassword'])->name('user.password.update');
 });
@@ -34,36 +33,36 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
     Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
-    Route::get('/admin/change/password', [AdminController::class, 'changePassword'])->name('admin.change.password'); 
+    Route::get('/admin/change/password', [AdminController::class, 'changePassword'])->name('admin.change.password');
     Route::post('/admin/profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
     Route::post('/admin/password/update', [AdminController::class, 'updatePassword'])->name('admin.password.update');
 
-     // Property Type All Route 
-    Route::controller(PropertyTypeController::class)->group(function(){
+    // Property Type All Route
+    Route::controller(PropertyTypeController::class)->group(function () {
         Route::get('/all/type', 'allType')->name('property.all.type');
         Route::get('/add/type', 'create')->name('property.add.type');
         Route::get('/edit/type/{id}', 'edit')->name('property.edit.type');
-        Route::get('/delete/type/{id}', 'delete')->name('property.delete.type'); 
+        Route::get('/delete/type/{id}', 'delete')->name('property.delete.type');
         Route::post('/add/type', 'store')->name('property.store.type');
         Route::post('/update/type', 'update')->name('property.update.type');
     });
 
     // Amenities All Route
-    Route::controller(AmenitiesController::class)->group(function() {
+    Route::controller(AmenitiesController::class)->group(function () {
         Route::get('/all/amenities', 'index')->name('amenities.index');
         Route::get('/add/amenities', 'create')->name('amenities.add');
         Route::get('/edit/amenities/{id}', 'edit')->name('amenities.edit');
-        Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete'); 
+        Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete');
         Route::post('/add/amenities', 'store')->name('amenities.store');
         Route::post('/update/amenities', 'update')->name('amenities.update');
     });
 
     // Amenities All Route
-    Route::controller(PropertyController::class)->group(function() {
+    Route::controller(PropertyController::class)->group(function () {
         Route::get('/all/property', 'index')->name('property.index');
         Route::get('/add/property', 'create')->name('property.add');
         // Route::get('/edit/amenities/{id}', 'edit')->name('amenities.edit');
-        // Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete'); 
+        // Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete');
         // Route::post('/add/amenities', 'store')->name('amenities.store');
         // Route::post('/update/amenities', 'update')->name('amenities.update');
     });

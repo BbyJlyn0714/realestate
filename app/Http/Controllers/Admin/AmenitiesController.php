@@ -3,60 +3,68 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Amenities;
+use Illuminate\Http\Request;
 
 class AmenitiesController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $amenities = Amenities::latest()->get();
+
         return view('admin.amenities.index', compact('amenities'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('admin.amenities.add');
     }
 
-    public function store(Request $request) {
-        Amenities::insert([ 
-            'amenities_name' => $request->amenities_name, 
+    public function store(Request $request)
+    {
+        Amenities::insert([
+            'amenities_name' => $request->amenities_name,
         ]);
 
-          $notification = array(
+        $notification = [
             'message' => 'Amenities Create Successfully',
-            'alert-type' => 'success'
-        );
+            'alert-type' => 'success',
+        ];
 
         return redirect()->route('amenities.index')->with($notification);
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $amenities = Amenities::findOrFail($id);
+
         return view('admin.amenities.edit', compact('amenities'));
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $ame_id = $request->id;
 
-        Amenities::findOrFail($ame_id)->update([ 
-            'amenities_name' => $request->amenities_name, 
+        Amenities::findOrFail($ame_id)->update([
+            'amenities_name' => $request->amenities_name,
         ]);
 
-          $notification = array(
+        $notification = [
             'message' => 'Amenities Updated Successfully',
-            'alert-type' => 'success'
-        );
+            'alert-type' => 'success',
+        ];
 
         return redirect()->route('amenities.index')->with($notification);
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         Amenities::findOrFail($id)->delete();
 
-        $notification = array(
+        $notification = [
             'message' => 'Amenities Deleted Successfully',
-            'alert-type' => 'success'
-        );
+            'alert-type' => 'success',
+        ];
 
         return redirect()->back()->with($notification);
     }

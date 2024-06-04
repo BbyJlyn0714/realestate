@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use DB;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
@@ -22,7 +21,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
                 'role' => 'admin',
-                'status' => 'active'
+                'status' => 'active',
             ],
 
             // Agent
@@ -32,7 +31,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'agent@gmail.com',
                 'password' => Hash::make('password'),
                 'role' => 'agent',
-                'status' => 'active'
+                'status' => 'active',
             ],
 
             // User
@@ -42,8 +41,8 @@ class UsersTableSeeder extends Seeder
                 'email' => 'user@gmail.com',
                 'password' => Hash::make('password'),
                 'role' => 'user',
-                'status' => 'active'
-            ]
+                'status' => 'active',
+            ],
         ]);
     }
 }
