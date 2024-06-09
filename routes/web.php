@@ -63,7 +63,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/add/property', 'create')->name('property.add');
         // Route::get('/edit/amenities/{id}', 'edit')->name('amenities.edit');
         // Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete');
-        // Route::post('/add/amenities', 'store')->name('amenities.store');
+        Route::post('/add/property', 'store')->name('property.store');
         // Route::post('/update/amenities', 'update')->name('amenities.update');
     });
 }); // Admin Group
