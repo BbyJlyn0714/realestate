@@ -72,5 +72,38 @@ class PropertyController extends Controller
             'property_thambnail' => $save_url,
             'created_at' => Carbon::now(),
         ]);
+
+        $images = $request->file('multi_img');
+
+        foreach ($images as $img) {
+            $make_me = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+            Image::make($img)->resize(770, 520)->save('upload/images/property/multi-image/'.$make_me);
+            $uploadPath = 'upload/images/property/multi-image/'.$make_me;
+
+            MultiImage::insert([
+                'property_id' => $property_id,
+                'photo_name' => $uploadPath,
+                'created_at' => Carbon::now(),
+            ]);
+        }
+
+        $facilities = count($request->facility_name);
+
+        if ($facilities != null) {
+            for ($i = 0; $i < $facilities; $i++) {
+                $fcount = new Facility();
+                $fcount->property_id = $property_id;
+                $fcount->facility_name = $request->facility_name[$i];
+                $fcount->distance = $request->distance[$i];
+                $fcount->save();
+            }
+        }
+
+        $notification = [
+            'message' => 'Property Inserted Successfully',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('property.index')->with($notification);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Amenities;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AmenitiesController extends Controller
@@ -24,6 +25,7 @@ class AmenitiesController extends Controller
     {
         Amenities::insert([
             'amenities_name' => $request->amenities_name,
+            'created_at' => Carbon::now(),
         ]);
 
         $notification = [
@@ -47,6 +49,7 @@ class AmenitiesController extends Controller
 
         Amenities::findOrFail($ame_id)->update([
             'amenities_name' => $request->amenities_name,
+            'updated_at' => Carbon::now(),
         ]);
 
         $notification = [
