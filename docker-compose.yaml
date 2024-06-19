@@ -1,0 +1,47 @@
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mysql:
+    driver: local
+  phpmyadmin:
+    driver: local
+
+services:
+  mysql:
+    build:
+      context: ./docker/mysql
+      args:
+        - MYSQL_VERSION=latest
+    environment:
+      - MYSQL_DATABASE=realestate
+      # - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=UTC
+    volumes:
+      - /.test/data/mysql:/var/lib/mysql
+      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+  phpmyadmin:
+    build: ./docker/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MAX_EXECUTION_TIME=600
+      - MEMORY_LIMIT=265M
+      - UPLOAD_LIMIT=2G
+    ports:
+      - "8081:80"
+    depends_on:
+      - "mysql"
+    networks:
+      - backend
+
