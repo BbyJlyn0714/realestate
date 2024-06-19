@@ -21,8 +21,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - TZ=UTC
     volumes:
-      - /.test/data/mysql:/var/lib/mysql
-      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ~.test/data/mysql:/var/lib/mysql
+      - ./docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
     networks:
