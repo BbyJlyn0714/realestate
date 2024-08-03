@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Amenities;
+use App\Models\Facility;
+use App\Models\MultiImage;
 use App\Models\Property;
 use App\Models\PropertyType;
 use App\Models\User;
-use App\Models\MultiImage;
-use App\Models\Facility;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Http\Request;
 use Intervention\Image\Laravel\Facades\Image;
 
 class PropertyController extends Controller
@@ -39,16 +39,16 @@ class PropertyController extends Controller
         try {
             $amen = $request->amenities_id;
             $amenities = implode(',', $amen);
-    
+
             $pcode = IdGenerator::generate(['table' => 'properties', 'field' => 'property_code', 'length' => 5, 'prefix' => 'PC']);
-    
+
             $image = Image::read($request->file('property_thumbnail'));
-    
+
             $name_gen = hexdec(uniqid()).'.'.$request->file('property_thumbnail')->getClientOriginalExtension();
-           
+
             $image->resize(370, 250)->save('upload/images/property/thumbnail/'.$name_gen);
             $save_url = 'upload/images/property/thumbnail/'.$name_gen;
-    
+
             $property_id = Property::insertGetId([
                 'property_type_id' => $request->ptype_id,
                 'amenities_id' => $amenities,
@@ -80,22 +80,22 @@ class PropertyController extends Controller
                 'property_thumbnail' => $save_url,
                 'created_at' => Carbon::now(),
             ]);
-    
+
             foreach ($request->file('multi_img') as $images) {
                 $img = Image::read($images);
                 $make_me = hexdec(uniqid()).'.'.$images->getClientOriginalExtension();
                 $img->resize(770, 520)->save('upload/images/property/multi-image/'.$make_me);
                 $uploadPath = 'upload/images/property/multi-image/'.$make_me;
-    
+
                 MultiImage::insert([
                     'property_id' => $property_id,
                     'photo_name' => $uploadPath,
                     'created_at' => Carbon::now(),
                 ]);
             }
-    
+
             $facilities = count($request->facility_name);
-    
+
             if ($facilities != null) {
                 for ($i = 0; $i < $facilities; $i++) {
                     $fcount = new Facility();
@@ -105,22 +105,22 @@ class PropertyController extends Controller
                     $fcount->save();
                 }
             }
-    
+
             DB::commit();
 
             $notification = [
                 'message' => 'Property Inserted Successfully',
                 'alert-type' => 'success',
             ];
-    
+
             return redirect()->route('property.index')->with($notification);
         } catch (\Exception $e) {
             DB::rollBack();
-            
-            \Log::error('Error inserting property: ' . $e->getMessage());
+
+            \Log::error('Error inserting property: '.$e->getMessage());
 
             return redirect()->back()->withErrors(['error' => 'Failed to insert property. Please try again later.']);
         }
-       
+
     }
 }
