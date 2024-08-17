@@ -124,13 +124,14 @@ class PropertyController extends Controller
 
     }
 
-    public function edit(Property $property) {
+    public function edit(Property $property)
+    {
         $propertytype = PropertyType::latest()->get();
 
         $amenities = Amenities::latest()->get();
-       
+
         $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
-      
-        return view('admin.property.property_edit',compact('property', 'propertytype', 'amenities', 'activeAgent'));
+
+        return view('admin.property.property_edit', compact('property', 'propertytype', 'amenities', 'activeAgent'));
     }
 }

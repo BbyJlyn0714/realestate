@@ -11,7 +11,8 @@ class Property extends Model
 
     protected $guarded = [];
 
-    public function type(){
+    public function type()
+    {
         return $this->belongsTo(PropertyType::class, 'property_type_id', 'id');
     }
 }
