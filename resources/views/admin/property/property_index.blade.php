@@ -28,11 +28,11 @@
                             <tbody>
                                 @foreach($properties as $key => $item)
                                 <tr>
-                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td><img src="{{ asset($item->property_thumbnail) }}"
                                             style="width:70px; height:40px;"> </td>
                                     <td>{{ $item->property_name }}</td>
-                                    <td>{{ $item->property_type_id }}</td>
+                                    <td>{{ $item['type']['type_name'] }}</td>
                                     <td>{{ $item->property_status }}</td>
                                     <td>{{ $item->city }}</td>
                                     <td>
@@ -43,7 +43,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href=""
+                                        <a href="{{ route('property.edit', $item->id) }}"
                                             class="btn btn-inverse-warning"> Edit </a>
                                         <a href=""
                                             class="btn btn-inverse-danger" id="delete"> Delete </a>

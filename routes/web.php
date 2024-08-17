@@ -57,10 +57,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/update/amenities', 'update')->name('amenities.update');
     });
 
-    // Amenities All Route
+    // Property All Route
     Route::controller(PropertyController::class)->group(function () {
         Route::get('/all/property', 'index')->name('property.index');
         Route::get('/add/property', 'create')->name('property.add');
+        Route::get('/edit/property/{property}', 'edit')->name('property.edit');
         // Route::get('/edit/amenities/{id}', 'edit')->name('amenities.edit');
         // Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete');
         Route::post('/add/property', 'store')->name('property.store');
