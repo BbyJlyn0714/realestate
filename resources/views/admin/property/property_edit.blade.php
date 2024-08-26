@@ -27,8 +27,8 @@
                                         <select name="property_status" class="form-select"
                                             id="exampleFormControlSelect1">
                                             <option selected="" disabled="">Select Status</option>
-                                            <option value="rent">For Rent</option>
-                                            <option value="buy">For Buy</option>
+                                            <option value="rent" {{ $property->property_status == 'rent' ? 'selected' : '' }} >For Rent</option>
+                                            <option value="buy" {{ $property->property_status == 'buy' ? 'selected' : '' }}>For Buy</option> 
                                         </select>
                                     </div>
                                 </div><!-- Col -->
@@ -134,7 +134,7 @@
                                         <select name="ptype_id" class="form-select" id="exampleFormControlSelect1">
                                             <option selected="" disabled="">Select Type</option>
                                             @foreach($propertytype as $ptype)
-                                            <option value="{{ $ptype->id }}">{{ $ptype->type_name }}</option>
+                                            <option value="{{ $ptype->id }}" {{ $ptype->id == $property->property_type_id ? 'selected' : '' }}>{{ $ptype->type_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -144,7 +144,7 @@
                                         <label class="form-label">Property Amenities </label>
                                         <select name="amenities_id[]" class="js-example-basic-multiple form-select" multiple="multiple" data-width="100%">
                                             @foreach($amenities as $ameni)
-                                            <option value="{{ $ameni->id }}">{{ $ameni->amenities_name }}</option>
+                                            <option value="{{ $ameni->id }}" {{ (in_array($ameni->id, $property_amenities)) ? 'selected' : '' }} >{{ $ameni->amenities_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -176,11 +176,11 @@
                             <hr>
                             <div class="mb-3">
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" name="featured" value="1" class="form-check-input" id="checkInline1">
+                                    <input type="checkbox" name="featured" value="1" class="form-check-input" id="checkInline1" {{ $property->featured == '1' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="checkInline1">Features Property </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" name="hot" value="1" class="form-check-input" id="checkInline">
+                                    <input type="checkbox" name="hot" value="1" class="form-check-input" id="checkInline" {{ $property->hot == '1' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="checkInline">Hot Property </label>
                                 </div>
                             </div>
