@@ -44,9 +44,10 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('property.edit', $item->id) }}"
-                                            class="btn btn-inverse-warning"> Edit </a>
-                                        <a href=""
-                                            class="btn btn-inverse-danger" id="delete"> Delete </a>
+                                            class="btn btn-inverse-warning" title="Edit"> <i data-feather="edit"></i> </a>
+                                        <a href="{{ route('property.delete', $item->id) }}"
+                                            class="btn btn-inverse-danger" id="delete" title="Delete"> <i data-feather="trash-2"></i> </a>
+                                            <a href="{{ route('property.details',$item->id) }}" class="btn btn-inverse-info" title="Details"> <i data-feather="eye"></i> </a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -62,10 +62,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/all/property', 'index')->name('property.index');
         Route::get('/add/property', 'create')->name('property.add');
         Route::get('/edit/property/{property}', 'edit')->name('property.edit');
-        // Route::get('/edit/amenities/{id}', 'edit')->name('amenities.edit');
-        // Route::get('/delete/amenities/{id}', 'delete')->name('amenities.delete');
+        Route::get('/delete/property/multiImage/{img}', 'deleteMultiImage')->name('property.delete.multiimage');
         Route::post('/add/property', 'store')->name('property.store');
-        // Route::post('/update/amenities', 'update')->name('amenities.update');
+        Route::post('/update/property', 'update')->name('property.update');
+        Route::post('/update/property/thumbnail', 'updateThumbnail')->name('property.update.thumbnail');
+        Route::post('/update/property/multiImage', 'updateMultiImage')->name('property.update.multiimage');
+        Route::post('/store/property/multiImage', 'storeMultiImage')->name('property.store.multiimage');
+        Route::post('/update/property/facilities', 'updatePropertyFacilities')->name('update.property.facilities');
+        Route::get('/delete/property/{property}', 'delete')->name('property.delete');
+        Route::get('/details/property/{property}', 'detailsProperty')->name('property.details');
+        Route::get('/inactive/property/{property}', 'inactiveProperty')->name('     ');
+        Route::get('/active/property/{property}', 'activeProperty')->name('property.active');
     });
 }); // Admin Group
 
@@ -75,4 +82,4 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
     Route::get('/agent/logout', [AgentController::class, 'logout'])->name('agent.logout');
 }); // Agent Group
 
-Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login')->middleware('redirectIfAuthenticated');
