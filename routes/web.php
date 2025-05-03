@@ -88,4 +88,4 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
 
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login')->middleware('redirectIfAuthenticated');
 Route::get('/agent/login', [AgentController::class, 'login'])->name('agent.login')->middleware('redirectIfAuthenticated');
-Route::post('/agent/register', [AgentController::class, 'register'])->name('agent.register'); 
+Route::post('/agent/register', [AgentController::class, 'register'])->name('agent.register');

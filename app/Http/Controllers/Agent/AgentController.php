@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +15,7 @@ class AgentController extends Controller
     public function dashboard()
     {
         $id = Auth::user()->id;
-        
+
         $data = User::find($id);
 
         return view('agent.index', compact('data'));
@@ -30,19 +29,21 @@ class AgentController extends Controller
 
         $request->session()->regenerateToken();
 
-        $notification = array(
+        $notification = [
             'message' => 'Agent Logout Successfully',
-            'alert-type' => 'success'
-        ); 
+            'alert-type' => 'success',
+        ];
 
         return redirect('/agent/login')->with($notification);
     }
 
-    public function login() {
+    public function login()
+    {
         return view('agent.login');
     }
 
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -59,77 +60,82 @@ class AgentController extends Controller
         return redirect('/agent/dashboard');
     }
 
-    public function profile() {
+    public function profile()
+    {
         $id = Auth::user()->id;
-        
+
         $data = User::find($id);
 
-        return view('agent.profile',compact('data'));
+        return view('agent.profile', compact('data'));
     }
 
-    public function profileUpdate(Request $request) {
+    public function profileUpdate(Request $request)
+    {
         $id = Auth::user()->id;
         $data = User::find($id);
         $data->username = $request->username;
         $data->name = $request->name;
         $data->email = $request->email;
         $data->phone = $request->phone;
-        $data->address = $request->address; 
+        $data->address = $request->address;
 
         if ($request->file('photo')) {
             $file = $request->file('photo');
             @unlink(public_path('upload/agent/profile/'.$data->photo));
-            $filename = date('YmdHi').$file->getClientOriginalName(); 
-            $file->move(public_path('upload/agent/profile'),$filename);
-            $data['photo'] = $filename;  
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('upload/agent/profile'), $filename);
+            $data['photo'] = $filename;
         }
 
         $data->save();
 
-        $notification = array(
+        $notification = [
             'message' => 'Agent Profile Updated Successfully',
-            'alert-type' => 'success'
-        );
+            'alert-type' => 'success',
+        ];
 
         return redirect()->back()->with($notification);
     }
 
-    public function changePassword() {
+    public function changePassword()
+    {
         $id = Auth::user()->id;
         $data = User::find($id);
+
         return view('agent.password', compact('data'));
     }
 
-    public function updatePassword(Request $request) {
-        // Validation 
+    public function updatePassword(Request $request)
+    {
+        // Validation
         $request->validate([
             'old_password' => 'required',
-            'new_password' => 'required|confirmed'
+            'new_password' => 'required|confirmed',
 
         ]);
 
         /// Match The Old Password
- 
-        if (!Hash::check($request->old_password, auth::user()->password)) {
-           
-            $notification = array(
+
+        if (! Hash::check($request->old_password, auth::user()->password)) {
+
+            $notification = [
                 'message' => 'Old Password Does not Match!',
-                'alert-type' => 'error'
-            );
- 
+                'alert-type' => 'error',
+            ];
+
             return back()->with($notification);
         }
 
         User::whereId(auth()->user()->id)->update([
-            'password' => Hash::make($request->new_password)
+            'password' => Hash::make($request->new_password),
 
         ]);
 
-        $notification = array(
+        $notification = [
             'message' => 'Password Change Successfully',
-            'alert-type' => 'success'
-        );
+            'alert-type' => 'success',
+        ];
 
-        return back()->with($notification); 
+        return back()->with($notification);
     }
 }
