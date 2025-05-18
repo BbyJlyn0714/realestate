@@ -9,17 +9,20 @@ use Illuminate\Support\Facades\Hash;
 
 class AgentController extends Controller
 {
-    public function list() {
-        $agents = User::where('role','agent')->get();
+    public function list()
+    {
+        $agents = User::where('role', 'agent')->get();
 
         return view('admin.agent.index', compact('agents'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('admin.agent.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         User::insert([
             'name' => $request->name,
             'email' => $request->email,
@@ -27,58 +30,60 @@ class AgentController extends Controller
             'address' => $request->address,
             'password' => Hash::make($request->password),
             'role' => 'agent',
-            'status' => 'active', 
+            'status' => 'active',
         ]);
-    
-    
-        $notification = array(
+
+        $notification = [
             'message' => 'Agent Created Successfully',
-            'alert-type' => 'success'
-        );
-    
-        return redirect()->route('admin.agent.list')->with($notification); 
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('admin.agent.list')->with($notification);
     }
 
-    public function edit(User $user) {
+    public function edit(User $user)
+    {
 
-        return view('admin.agent.edit',compact('user'));
+        return view('admin.agent.edit', compact('user'));
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $user_id = $request->id;
 
         User::findOrFail($user_id)->update([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'address' => $request->address, 
+            'address' => $request->address,
         ]);
 
-
-       $notification = array(
+        $notification = [
             'message' => 'Agent Updated Successfully',
-            'alert-type' => 'success'
-        );
+            'alert-type' => 'success',
+        ];
 
-        return redirect()->route('admin.agent.list')->with($notification);  
+        return redirect()->route('admin.agent.list')->with($notification);
     }
 
-    public function delete(User $user) {
+    public function delete(User $user)
+    {
         $user->delete();
 
-        $notification = array(
+        $notification = [
             'message' => 'Agent Deleted Successfully',
-            'alert-type' => 'success'
-        );
+            'alert-type' => 'success',
+        ];
 
-        return redirect()->back()->with($notification); 
+        return redirect()->back()->with($notification);
     }
 
-    public function changeStatus(Request $request) {
+    public function changeStatus(Request $request)
+    {
         $user = User::find($request->user_id);
         $user->status = $request->status;
         $user->save();
 
-        return response()->json(['success'=>'Status Change Successfully']);
+        return response()->json(['success' => 'Status Change Successfully']);
     }
 }

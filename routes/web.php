@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AgentController as AdminAgentController;
 use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\PropertyTypeController;
-use App\Http\Controllers\Admin\AgentController as AdminAgentController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -77,13 +77,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     });
 
     Route::controller(AdminAgentController::class)->group(function () {
-       Route::get('/all/agent', 'list')->name('admin.agent.list');
-       Route::get('/create/agent', 'create')->name('admin.agent.create');
-       Route::post('/store/agent', 'store')->name('admin.agent.store');
-       Route::get('/edit/agent/{user}', 'edit')->name('admin.agent.edit');
-       Route::post('/update/agent', 'update')->name('admin.agent.update');
-       Route::get('/delete/agent/{user}', 'delete')->name('admin.agent.delete');
-       Route::get('/agent/changeStatus', 'changeStatus')->name('admin.agent.delete');
+        Route::get('/all/agent', 'list')->name('admin.agent.list');
+        Route::get('/create/agent', 'create')->name('admin.agent.create');
+        Route::post('/store/agent', 'store')->name('admin.agent.store');
+        Route::get('/edit/agent/{user}', 'edit')->name('admin.agent.edit');
+        Route::post('/update/agent', 'update')->name('admin.agent.update');
+        Route::get('/delete/agent/{user}', 'delete')->name('admin.agent.delete');
+        Route::get('/agent/changeStatus', 'changeStatus')->name('admin.agent.delete');
     });
 }); // Admin Group
 
