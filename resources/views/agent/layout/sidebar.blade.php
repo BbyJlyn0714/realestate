@@ -18,6 +18,8 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
+            @if (auth()->user()->status === 'active')
+        
             <li class="nav-item nav-category">RealEstate</li>
 
             <li class="nav-item">
@@ -87,6 +89,9 @@
                 </div>
             </li>
 
+            @else
+            
+            @endif
 
 
 

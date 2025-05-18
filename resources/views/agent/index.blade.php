@@ -3,6 +3,13 @@
 
 <div class="page-content">
 
+    @if(auth()->user()->status === 'active')
+    <h4>Agent Account Is <span class="text-success">Active </span> </h4>
+
+    @else
+    <h4>Agent Account Is <span class="text-danger">Inactive </span> </h4>
+    <p class="text-danger"><b> Please wait admin will check and approve your account</b></p>
+    @endif
     <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
         <div>
             <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
